@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PresentacionImpl implements PresentacionService {
 
+    // Inyectar por dependencia
     private final Presentaciondao presentaciondao;
 
     @Override

@@ -33,18 +33,19 @@ public class ProductoController {
 
     @GetMapping("/productos")
 
-     public ResponseEntity<List<Producto>> findAll (@RequestParam(required = false) String name){
+     public ResponseEntity<List<Producto>> findAll(@RequestParam(required = false) String name){
 
         List<Producto> productos = new ArrayList<>();
 
-        if(name == null)
+        if (name == null)
           
             productoService.findAll().forEach(productos::add);
 
         else
-            productoService.findProductosByNameContaining(name).forEach(productos::add);
+            productoService.findProductosByNameContaining(name).forEach(producto -> productos.add(producto));
 
         if (productos.isEmpty()) {
+
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             
         }
@@ -66,16 +67,9 @@ public ResponseEntity<Producto> getProductosById(@PathVariable("id") Integer id)
  @PostMapping("/productos")
  public ResponseEntity<Producto>  crearProducto(@RequestBody Producto producto){
 
-    // Preguntar se utilizar el constructor de lombok esta bien
+    
 
-    Producto productocreado = productoService.save(
-        Producto.builder()
-        .name(producto.getName())
-        .description(producto.getDescription())
-        .price(producto.getPrice())
-        .stock(producto.getStock())
-        .build()
-    );
+    Producto productocreado = productoService.save(producto);
 
     return new ResponseEntity<>(productocreado,HttpStatus.CREATED);
 
@@ -83,6 +77,7 @@ public ResponseEntity<Producto> getProductosById(@PathVariable("id") Integer id)
 
 @PutMapping("/productos/{id}")
 public ResponseEntity<Producto> updateProducto(@PathVariable("id") Integer id, @RequestBody Producto producto) {
+    
     Producto productoActualizado = productoService.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Not found product with id = " + id));
 

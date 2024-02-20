@@ -28,11 +28,11 @@ countQuery = "select count(p) from Producto p left join p.presentaciones")
      public List<Producto> findAll(Sort sort);
 
 //     // Metodo 3
-     @Query(value = "select p from Producto p left join fetch p.presentaciones where p.id = :id")
-     public Optional<Producto> findById(int id);
+     // @Query(value = "select p from Producto p left join fetch p.presentaciones where p.id = :id")
+     // public Optional<Producto> findById(int id);
 
      List<Producto> findByNameContaining(String name);
-     List<Producto> findProductosByPresentacionesId(int productoId);
+     List<Producto> findProductosByPresentacionesId(int presentacionId);
 
      
     

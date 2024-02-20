@@ -18,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 
 public class ProductoImpl implements ProductoService{
 
+     //inyectar por constructor
+
     private final Productodao productodao;
 
     @Override

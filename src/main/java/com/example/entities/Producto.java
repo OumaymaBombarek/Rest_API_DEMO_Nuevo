@@ -1,6 +1,7 @@
 package com.example.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -70,6 +71,7 @@ private static final long serialVersionUID = 1L;
     inverseJoinColumns = { @JoinColumn(name = "presentacion_id")})
 
     private List<Presentacion> presentaciones;
+    
 
 
     public void addPresentacion(Presentacion presentacion) {
@@ -79,7 +81,9 @@ private static final long serialVersionUID = 1L;
 
 
       public void removePresentacion(int presentacionId) {
-        Presentacion presentacion = this.presentaciones.stream().filter(t -> t.getId() == presentacionId).findFirst().orElse(null);
+
+        Presentacion presentacion = this.presentaciones.stream()
+        .filter(t -> t.getId() == presentacionId).findFirst().orElse(null);
         if (presentacion != null) {
           this.presentaciones.remove(presentacion);
           presentacion.getProductos().remove(this);
